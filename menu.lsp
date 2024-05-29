@@ -33,11 +33,12 @@
         (1  (registrarConsorcios))
         (2  (progn
                 (loop
+                    (print "= Registre 3 abogados por Consorcio =")
                     (print "Ingrese el NIT del consorcio al cual desea registrar abogados: ")
                     (setq nit (read))
-                    (if (typep nit 'integer) 
-                        (setq band 1) ; Si el tipo de dato es entero, entonces el loop termina
-                        (progn (setq band 0) (format t "Error! Ingrese un tipo de dato valido para el NIT...~%"))
+                    (if (and (integerp nit) (> nit 0)) 
+                        (setq band 1) ; Si el tipo de dato es entero positivo, el loop termina
+                        (progn (setq band 0) (format t "Error! Ingrese un NIT valido (entero positivo)...~%"))
                     )
                     (when (= band 1) (return))
                 )
@@ -48,9 +49,9 @@
                 (loop
                     (print "Ingrese el nit del consorcio a buscar: ")
                     (setq nit (read))
-                    (if (typep nit 'integer) 
-                        (setq band 1) ; Si el tipo de dato es entero, entonces el loop termina
-                        (progn (setq band 0) (format t "Error! Ingrese un tipo de dato valido para el NIT...~%"))
+                    (if (and (integerp nit) (> nit 0)) 
+                        (setq band 1) ; Si el tipo de dato es entero positivo, el loop termina
+                        (progn (setq band 0) (format t "Error! Ingrese un NIT valido (entero positivo)...~%"))
                     )
                     (when (= band 1) (return))
                 )
@@ -61,16 +62,16 @@
                 (loop
                     (print "Ingrese el NIT del consorcio a buscar: ")
                     (setq nit (read))
-                    (if (typep nit 'integer) 
-                        (progn ; Si el tipo de dato del NIT es entero, entonces se pide el ID del abogado
+                    (if (and (integerp nit) (> nit 0)) 
+                        (progn ; Si el tipo de dato del NIT es entero positivo, entonces se pide el ID del abogado
                             (print "Ingrese el ID del abogado a buscar: ")
                             (setq num_tarjeta (read))
-                            (if (typep num_tarjeta 'integer)
-                                (setq band 1) ; Si el tipo de dato del ID es entero, entonces el loop termina
-                                (progn (setq band 0) (format t "Error! Ingrese un tipo de dato valido para el ID...~%"))
+                            (if (and (integerp num_tarjeta) (> num_tarjeta 0))
+                                (setq band 1) ; Si el tipo de dato del ID es entero positivo, el loop termina
+                                (progn (setq band 0) (format t "Error! Ingrese un ID valido (entero positivo)...~%"))
                             )
                         )
-                        (progn (setq band 0) (format t "Error! Ingrese un tipo de dato valido para el NIT...~%"))
+                        (progn (setq band 0) (format t "Error! Ingrese un NIT valido (entero positivo)...~%"))
                     )
                     (when (= band 1) (return))
                 )
@@ -81,9 +82,9 @@
                 (loop
                     (print "Ingrese el NIT del consorcio a buscar: ")
                     (setq nit (read))
-                    (if (typep nit 'integer) 
-                        (setq band 1) ; Si el tipo de dato es entero, entonces el loop termina
-                        (progn (setq band 0) (format t "Error! Ingrese un tipo de dato valido para el NIT...~%"))
+                    (if (and (integerp nit) (> nit 0)) 
+                        (setq band 1) ; Si el tipo de dato es entero positivo, el loop termina
+                        (progn (setq band 0) (format t "Error! Ingrese un NIT valido (entero positivo)...~%"))
                     )
                     (when (= band 1) (return))
                 )

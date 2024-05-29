@@ -30,27 +30,30 @@
                             (loop
                                 (print "Digite el numero de tarjeta profesional del abogado:")
                                 (setf (Abogado-numero_tarjeta abogado) (read))
-                                (if (typep (Abogado-numero_tarjeta abogado) 'integer) 
-                                    (setq band 1) ; Si el tipo de dato es entero, el loop termina
-                                    (progn (setq band 0) (format t "Error! Ingrese un numero entero valido para el numero de tarjeta profesional...~%")))
+                                (if (and (integerp (Abogado-numero_tarjeta abogado)) 
+                                (<= (Abogado-numero_tarjeta abogado) 255))
+                                    (setq band 1)  ; Si el tipo de dato es entero y <= 255, el loop termina
+                                    (progn (setq band 0) (format t "Error! Ingrese un numero entero valido (<= 255) para el número de tarjeta profesional...~%")))
                                 (when (= band 1) (return)))
 
                             ; Ingresar Nombre del Abogado
                             (loop
                                 (print "Digite el nombre del abogado:")
-                                (setf (Abogado-nombre abogado) (read))
-                                (if (typep (Abogado-nombre abogado) 'number)
-                                    (progn (setq band 0) (format t "Error! Ingrese una cadena valida para el nombre...~%")))
-                                    (setq band 1) ; Si el tipo de dato es una cadena, el loop termina
+                                (setf (Abogado-nombre abogado) (read-line))
+                                (if (and (stringp (Abogado-nombre abogado))
+                                        (not (some #'digit-char-p (Abogado-nombre abogado))))
+                                    (setq band 1) ; Si el tipo de dato es una cadena y no contiene números, el loop termina
+                                    (progn (setq band 0) (format t "Error! Ingrese un nombre valido (solo letras)...~%")))
                                 (when (= band 1) (return)))
 
                             ; Ingresar Apellido del Abogado
                             (loop
                                 (print "Digite el apellido del abogado:")
-                                (setf (Abogado-apellido abogado) (read))
-                                (if (typep (Abogado-apellido abogado) 'number)
-                                    (progn (setq band 0) (format t "Error! Ingrese una cadena valida para el apellido...~%")))
-                                    (setq band 1) ; Si el tipo de dato es una cadena, el loop termina
+                                (setf (Abogado-apellido abogado) (read-line))
+                                (if (and (stringp (Abogado-apellido abogado))
+                                        (not (some #'digit-char-p (Abogado-apellido abogado))))
+                                    (setq band 1) ; Si el tipo de dato es una cadena y no contiene números, el loop termina
+                                    (progn (setq band 0) (format t "Error! Ingrese un apellido valido (solo letras)...~%")))
                                 (when (= band 1) (return)))
 
                             ; Ingresar el Tipo de Abogado
@@ -61,7 +64,7 @@
                                         (string= (Abogado-tipo abogado) "CIVIL")
                                         (string= (Abogado-tipo abogado) "LABORAL"))
                                     (setq band 1) ; Si el tipo de abogado es válido, el loop termina
-                                    (progn (setq band 0) (format t "Error! Ingrese un tipo de abogado válido...~%")))
+                                    (progn (setq band 0) (format t "Error! Ingrese un tipo de abogado valido...~%")))
                                 (when (= band 1) (return)))
 
                             ; Registrar el abogado en el vector de abogados del consorcio

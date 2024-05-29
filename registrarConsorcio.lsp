@@ -6,6 +6,7 @@
 (defun registrarConsorcios()
 	(setq band 1) ; Bandera para las validaciones de los datos
 	(setq i 0) ; Variable iteradora para el LOOP de buscar el consorcio de abogados
+	(print "= El programa guardara 2 consorcios de abogados =")
 
 	(loop
 		(format t "~%")
@@ -15,21 +16,22 @@
 
 		; Ingresar NIT del Consorcio de Abogados
 		(loop
-			(print "Digite el NIT del Consorcio de Abogados:")
-			(setf (Consorcio-nit consorcio) (read))
-			(if (typep (Consorcio-nit consorcio) 'integer)
-				(setq band 1)  ; Si el tipo de dato es entero, el loop termina
-				(progn (setq band 0) (format t "Error! Ingrese un tipo de dato valido para el NIT...~%")))
-			(when (= band 1) (return)))
+            (print "Digite el NIT del Consorcio de Abogados:")
+            (setf (Consorcio-nit consorcio) (read))
+            (if (and (integerp (Consorcio-nit consorcio)) (<= (Consorcio-nit consorcio) 255) (> (Consorcio-nit consorcio) 0))
+                (setq band 1)  ; Si el tipo de dato es entero positivo y <= 255, el loop termina
+                (progn (setq band 0) (format t "Error! Ingrese un NIT valido (entero positivo y <= 255)...~%")))
+            (when (= band 1) (return)))
 
 		; Ingresar Nombre del Consorcio de Abogados
 		(loop
-			(print "Digite el nombre del Consorcio de Abogados:")
-			(setf (Consorcio-nombre consorcio) (read))
-			(if (not (numberp (Consorcio-nombre consorcio)))
-				(setq band 1)  ; Si el tipo de dato no es un numero, el loop termina
-				(progn (setq band 0) (format t "Error! Ingrese un tipo de dato valido para el nombre...~%")))
-			(when (= band 1) (return)))
+            (print "Digite el nombre del Consorcio de Abogados:")
+            (setf (Consorcio-nombre consorcio) (read-line))
+            (if (and (stringp (Consorcio-nombre consorcio))
+                    (not (some #'digit-char-p (Consorcio-nombre consorcio))))
+                (setq band 1) ; Si el tipo de dato es una cadena y no contiene números, el loop termina
+                (progn (setq band 0) (format t "Error! Ingrese un nombre valido (solo letras)...~%")))
+            (when (= band 1) (return)))
 
 		; Ingresar el tipo de consorcio de abogados
 		(loop
